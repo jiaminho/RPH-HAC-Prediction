@@ -6,3 +6,5 @@ all_encoded_df.csv
 .ipynb_checkpoints/HAC_Preprocessing-checkpoint.ipynb
 .ipynb_checkpoints/HAC_Preprocessing-checkpoint.ipynb
 .ipynb_checkpoints/HAC_Model-checkpoint.ipynb
+selected_features_150.csv
+all_features_df.csv
