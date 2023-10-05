@@ -8,3 +8,9 @@ all_encoded_df.csv
 .ipynb_checkpoints/HAC_Model-checkpoint.ipynb
 selected_features_150.csv
 all_features_df.csv
+MLP_model1/mlp_rnd_search/trial_000/checkpoint.data-00000-of-00001
+MLP_model1/mlp_rnd_search/trial_001/checkpoint.data-00000-of-00001
+MLP_model1/mlp_rnd_search/trial_002/checkpoint.data-00000-of-00001
+MLP_model1/mlp_rnd_search/trial_003/checkpoint.data-00000-of-00001
+MLP_model1/mlp_rnd_search/trial_004/checkpoint.data-00000-of-00001
+MLP_model1/mlp_rnd_search/trial_005/checkpoint.data-00000-of-00001
