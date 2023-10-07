@@ -14,3 +14,14 @@ MLP_model1/mlp_rnd_search/trial_002/checkpoint.data-00000-of-00001
 MLP_model1/mlp_rnd_search/trial_003/checkpoint.data-00000-of-00001
 MLP_model1/mlp_rnd_search/trial_004/checkpoint.data-00000-of-00001
 MLP_model1/mlp_rnd_search/trial_005/checkpoint.data-00000-of-00001
+optuna_mlp.db
+optuna_model.db
+selected_features_80.csv
+*.json
+.ipynb_checkpoints/HAC_Model-checkpoint.ipynb
+*.data-00000-of-00001
+*.json
+MLP_model1/mlp_rnd_search/trial_006/checkpoint
+*.index
+MLP_model1/mlp_rnd_search/trial_007/checkpoint
+MLP_model1/mlp_rnd_search/trial_005/trial.json
