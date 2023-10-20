@@ -1,0 +1,77 @@
+Create Patient Nodes and Relationships:
+
+// Create patient nodes with important features
+LOAD CSV WITH HEADERS FROM 'file:///Admission_merged_n4j.csv' AS row
+CREATE (p:Patient)
+SET p.SUBJECT_ID = row.SUBJECT_ID,
+    p.GENDER = row.GENDER,
+    p.DOB = row.DOB,
+    p.AGE_AT_ADMISSION = row.AGE_AT_ADMISSION;
+
+// Create Admission nodes with important features
+LOAD CSV WITH HEADERS FROM 'file:///Admission_merged_n4j.csv' AS row
+CREATE (a:Admission)
+SET a.HADM_ID = row.HADM_ID,
+    a.ADMITTIME = row.ADMITTIME,
+    a.DISCHTIME = row.DISCHTIME,
+    a.ADMISSION_TYPE = row.ADMISSION_TYPE,
+    a.DIAGNOSIS = row.DIAGNOSIS;
+
+// Create relationship: Patients -> Admissions
+MATCH (p:Patient), (a:Admission)
+WHERE p.SUBJECT_ID = a.SUBJECT_ID
+MERGE (p)-[:ADMITTED_TO]->(a);
+
+
+
+
+
+Create Lab Measurement Nodes and Relationships:
+
+// Create LabMeasurement nodes with important features
+LOAD CSV WITH HEADERS FROM 'file:///Lab_merged_n4j.csv' AS row
+CREATE (lab:LabMeasurement)
+SET lab.HADM_ID = row.HADM_ID,
+    lab.ITEMID = row.ITEMID,
+    lab.LABEL = row.LABEL;
+
+// Create relationship: Admission -> Lab Measurements
+MATCH (a:Admission), (lab:LabMeasurement)
+WHERE a.HADM_ID = lab.HADM_ID
+MERGE (a)-[:HAS_LAB_MEASUREMENT]->(lab);
+
+
+
+
+Create Microbiology Nodes and Relationships:
+
+// Create Microbiology nodes with important features
+LOAD CSV WITH HEADERS FROM 'file:///Microbiologyevents_n4j.csv' AS row
+CREATE (micro:Microbiology)
+SET micro.HADM_ID = row.HADM_ID,
+    micro.item = row.item,
+    micro.value = row.value,
+    micro.date = row.date;
+
+// Create relationship: Admission -> Microbiology
+MATCH (a:Admission), (micro:Microbiology)
+WHERE a.HADM_ID = micro.HADM_ID
+MERGE (a)-[:TESTED_FOR_MICROBIOLOGY]->(micro);
+
+
+
+Create Procedure Nodes and Relationships:
+
+// Create Procedure nodes with important features
+LOAD CSV WITH HEADERS FROM 'file:///Procedure_merged_n4j.csv' AS row
+CREATE (proc:Procedure)
+SET proc.HADM_ID = row.HADM_ID,
+    proc.ICD9_CODE = row.ICD9_CODE,
+    proc.SHORT_TITLE = row.SHORT_TITLE,
+    proc.LONG_TITLE = row.LONG_TITLE;
+
+// Create relationship: Admission -> Procedures
+MATCH (a:Admission), (proc:Procedure)
+WHERE a.HADM_ID = proc.HADM_ID
+MERGE (a)-[:HAD_PROCEDURE]->(proc);
+
