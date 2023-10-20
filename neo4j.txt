@@ -75,3 +75,44 @@ MATCH (a:Admission), (proc:Procedure)
 WHERE a.HADM_ID = proc.HADM_ID
 MERGE (a)-[:HAD_PROCEDURE]->(proc);
 
+// Create relationship: Patients -> Admissions 
+MATCH (p:Patient), (a:Admission)
+WHERE p.SUBJECT_ID = a.SUBJECT_ID
+MERGE (p)-[:ADMITTED_TO]->(a)
+SET a.ADMITTIME = a.ADMITTIME,
+    a.DISCHTIME = a.DISCHTIME,
+    a.ADMISSION_TYPE = a.ADMISSION_TYPE,
+    a.DIAGNOSIS = a.DIAGNOSIS,
+    a.GENDER = p.GENDER,
+    a.DOB = p.DOB,
+    a.AGE_AT_ADMISSION = p.AGE_AT_ADMISSION;
+
+// Create relationship: Admissions -> Lab Measurements 
+MATCH (a:Admission), (lab:LabMeasurement)
+WHERE a.HADM_ID = lab.HADM_ID
+MERGE (a)-[:HAS_LAB_MEASUREMENT]->(lab)
+SET lab.ITEMID = lab.ITEMID,
+    lab.LABEL = lab.LABEL;
+
+// Create relationship: Admissions -> Diagnosis 
+MATCH (a:Admission), (d:Diagnosis)
+WHERE a.HADM_ID = d.HADM_ID
+MERGE (a)-[:DIAGNOSED_FOR]->(d)
+SET d.HOSPITAL_EXPIRE_FLAG = d.HOSPITAL_EXPIRE_FLAG,
+    d.HAS_CHARTEVENTS_DATA = d.HAS_CHARTEVENTS_DATA;
+
+// Create relationship: Admissions -> Microbiology 
+MATCH (a:Admission), (micro:Microbiology)
+WHERE a.HADM_ID = micro.HADM_ID
+MERGE (a)-[:TESTED_FOR_MICROBIOLOGY]->(micro)
+SET micro.item = micro.item,
+    micro.value = micro.value,
+    micro.date = micro.date;
+
+// Create relationship: Admissions -> Procedures 
+MATCH (a:Admission), (proc:Procedure)
+WHERE a.HADM_ID = proc.HADM_ID
+MERGE (a)-[:HAD_PROCEDURE]->(proc)
+SET proc.ICD9_CODE = proc.ICD9_CODE,
+    proc.SHORT_TITLE = proc.SHORT_TITLE,
+    proc.LONG_TITLE = proc.LONG_TITLE;
